@@ -1,22 +1,16 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="django-votes",
-    url='https://github.com/citylive/django-votes',
+    name="qhonuskan-votes",
+    url='https://github.com/miratcan/qhonuskan-votes',
     license='BSD',
-    description="Voting system for various things",
+    description="UP/Down voting system, without GenericForeignKey usage.",
     long_description=open('README.markdown', 'r').read(),
-    author='Maarten Timmerman, City Live nv',
-    packages=find_packages('src'),
-    package_data={'django_votes': [
-                'static/*/*/*.js',
-                'static/*/*/*.css',
-                'static/*/*/*.png',
-                'templates/*/*.html'
-                ], },
-    zip_safe=False, # Don't create egg files, Django cannot find templates in egg files.
-    include_package_data=True,
-    package_dir={'': 'src'},
+    author='Mirat Can Bayrak',
+    author_email='miratcanbayrak@gmail.com',
+    packages=find_packages(),
+    zip_safe=True,
+    include_package_data=False,
     classifiers=[
         'Intended Audience :: Developers',
         'Programming Language :: Python',
