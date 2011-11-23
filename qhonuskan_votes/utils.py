@@ -1,4 +1,4 @@
-from django_votes.models import _vote_models
+from qhonuskan_votes.models import _vote_models
 
 def get_vote_model(model_name):
     if model_name in _vote_models:

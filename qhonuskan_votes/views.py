@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django_votes.utils import get_vote_model
+from qhonuskan_votes.utils import get_vote_model
 from django.db.models import Sum
 from django.utils import simplejson
 from django.http import HttpResponse, HttpResponseRedirect
