@@ -1,0 +1,71 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+
+.updownvotes {
+    margin-top:10px;
+    
+    .votes-overview {
+        width:200px;
+        margin-left:10px;
+        margin-top:10px;
+        float:left;
+        
+        .up-votes, .down-votes {
+            height:20px;
+            float:left;
+        }     
+        
+        .up-votes {            
+            background-color:#457960;
+            border: 1px solid #f0f2f3;
+        }   
+        
+        .down-votes {
+            background-color:red;
+            border: 1px solid #f0f2f3;
+        }
+    }
+    
+    .vote-buttons {
+        float:left;
+        
+        ul li {
+            display: inline;
+            list-style-type:none;
+            padding-right:10px;
+        }
+    }
+    
+    .vote-results {        
+        clear:both;
+        
+        .vote-count {
+            font-weight:bold;
+        }
+        
+        .vote-bar {            
+        }
+        .vote-bar.up {
+            background-color:#457960;
+            border: 1px solid #f0f2f3;
+        }
+        .vote-bar.down {
+            background-color:red;
+            border: 1px solid #f0f2f3;
+        }
+    }    
+}
+
+.rating-container {
+    .rating {
+        float: left;
+    }
+    
+    .rating-title {
+        margin-left: 100px;    
+    }   
+}
