@@ -10,7 +10,7 @@ Usage example:
 
     class MyModel(models.Model):
 	    votes = VotesField()
-	    ... (other fields of this model)
+	    ... (  fields of this model)
 
 To use the views for up voting and down voting you include the urls.py in your website's url patterns:
 

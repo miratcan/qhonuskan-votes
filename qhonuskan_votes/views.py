@@ -13,7 +13,7 @@ def _api_view(func):
     def view(request):
         if request.method == 'POST':
             # Get comments model
-            model_name = request.POST['model']
+            model_name = request.POST['vote_model']
             model = get_vote_model(model_name)
             object_id = request.POST['object_id']
             # View
@@ -29,7 +29,6 @@ def _api_view(func):
                     return HttpResponse('OK')
         else:
             # Default response: 403
-            print "request is not post"
             return HttpResponse(status=403)
     return view
 
@@ -38,10 +37,8 @@ def vote(request, model, object_id, value):
     """
     Likes or dislikes an item.
     """
-
     if not request.user.is_authenticated():
         return HttpResponse(status=401) # you are not authenticated
-
     try:
         value = int(value)
     except ValueError:

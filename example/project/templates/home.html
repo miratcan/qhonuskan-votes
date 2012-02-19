@@ -1,0 +1,54 @@
+{% load qhonuskan_votes static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Test Application for Qhonuskan Votes</title>
+        <link href="{{STATIC_PREFIX}}default_buttons.css" rel="stylesheet" type="text/css" />
+        <style type="text/css">
+            body {
+                background: #555;
+            }
+            div#wrapper {
+                width: 520px;
+                padding: 20px;
+                margin: 40px auto;
+                background: #fff;
+                border: #000 solid 1px;
+            }
+            div.object {
+                overflow: auto;
+                margin: 0 0 30px 0;
+            }
+            div.object:last-child {
+                margin-bottom: 0;
+            }
+
+            div.vote_buttons {
+                width: 40px;
+                margin-right: 5px;
+                float: left;
+                border: 1px solid #666;
+            }
+        </style>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        {% voting_script %}
+
+    </head>
+    <body>
+
+        <div id="wrapper">
+            {% for object in objects %}
+            <div class="object">
+                {% vote_buttons_for object %}
+                <div class="text">
+                    {{ object.text }}
+                </div>
+            </div>
+           {% endfor %}
+        </div>
+    </body>
+</html>

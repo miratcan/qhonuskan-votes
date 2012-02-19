@@ -1,0 +1,4 @@
+- model: app.amodel
+  pk: 1
+  fields:
+    text: "this is a simple model that can be voted."set
