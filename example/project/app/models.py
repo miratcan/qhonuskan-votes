@@ -1,6 +1,7 @@
 from django.db import models
 from qhonuskan_votes.models import VotesField, ObjectsWithScoresManager
 
+
 class aModel(models.Model):
     """
     An example model for voting.

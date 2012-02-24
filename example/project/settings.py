@@ -1,7 +1,8 @@
 import os
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
-QHONUSKAN_VOTES_PATH = os.path.dirname(os.path.join(PROJECT_PATH, "../", "../"))
+QHONUSKAN_VOTES_PATH = os.path.dirname(
+    os.path.join(PROJECT_PATH, "../", "../"))
 
 os.sys.path.insert(0, QHONUSKAN_VOTES_PATH)
 
@@ -10,10 +11,15 @@ DATABASE_ENGINE = 'sqlite3'
 DATABASE_NAME = 'sqlite.db'
 DEBUG = True
 
-INSTALLED_APPS = ('django.contrib.auth', 'django.contrib.admin',
-                  'django.contrib.contenttypes', 'django.contrib.sessions',
-                  'django.contrib.staticfiles', 'django.contrib.sites',
-                  'app', 'qhonuskan_votes')
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.admin',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'qhonuskan_votes'
+    'app')
 
 INTERNAL_IPS = ('127.0.0.1',)
 
@@ -32,9 +38,10 @@ SECRET_KEY = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcd'
 
 SITE_ID = 1
 
-TEMPLATE_CONTEXT_PROCESSORS = ('django.core.context_processors.auth',
-                               'django.core.context_processors.media',
-                               'django.core.context_processors.request')
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth',
+    'django.core.context_processors.media',
+    'django.core.context_processors.request')
 
 STATIC_ROOT = os.path.join(PROJECT_PATH, "sitestatic/")
 
@@ -43,7 +50,6 @@ STATIC_URL = "/static/"
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder")
-
 
 TEMPLATE_DEBUG = DEBUG
 
