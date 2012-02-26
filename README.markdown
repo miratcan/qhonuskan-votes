@@ -2,6 +2,20 @@
 
 Easy to use reddit like voting system for django models.
 
+## Features
+
+1. Does not use GenericForeignKeys (which irritates me when making queries)
+1. Has vote_buttons_for templatetag, that generates html code for your object
+   for vote buttons.
+1. Has, default_buttons.css which gives a shape your buttons as default, but
+   you can override.
+1. Has, voting_script template tag, it generates javascript code to make
+   ajax requests for voting. Automatically finds qhonuskan_votes views.
+1. voting_script tag also renders overridable show_not_authenticated_error
+   function, so you can use your own error windows (jquery-ui etc.) via
+   overriding it.
+1. Default buttons are pure css, there is no images. So it's lite.
+
 ## How to use it?
 
 ### Append it to your models
@@ -95,3 +109,5 @@ buttons.
             </div>
         </div>
     {% endfor %}
+
+For further information you can inspect example project at root of the repository.
