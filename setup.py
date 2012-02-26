@@ -4,7 +4,7 @@ setup(
     name="qhonuskan-votes",
     url='https://github.com/miratcan/qhonuskan-votes',
     license='BSD',
-    description="UP/Down voting system, without GenericForeignKey usage.",
+    description="Easy to use reddit like voting system for django models.",
     long_description=open('README.markdown', 'r').read(),
     author='Mirat Can Bayrak',
     author_email='miratcanbayrak@gmail.com',
