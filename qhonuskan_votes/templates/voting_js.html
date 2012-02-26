@@ -15,15 +15,15 @@
 	            },
 		        success : function(data, textStatus, jqXHR) {
 		            vote_el.find(".score").html(data['score']);
-	                if (value == 1) {
+	                if (data['voted_as'] == 1) {
 	                    vote_el.find("a.downVote").removeClass("voted");
 	                    vote_el.find("a.upVote").addClass("voted");
 	                }
-	                if (value == -1) {
+	                if (data['voted_as'] == -1) {
 	                    vote_el.find("a.upVote").removeClass("voted");
 	                    vote_el.find("a.downVote").addClass("voted");
 	                }
-	                if (value == 0) {
+	                if (data['voted_as'] == 0) {
 	                    vote_el.find("a.upVote, a.downVote").removeClass("voted");
 	                }
 		        },

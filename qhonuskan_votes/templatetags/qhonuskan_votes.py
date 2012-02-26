@@ -1,15 +1,9 @@
 from django import template
 from django.core.urlresolvers import reverse
+from django.template import RequestContext
 
 register = template.Library()
 
-@register.inclusion_tag('vote_buttons.html')
-def vote_buttons_for(object):
-    return {
-        "object": object,
-        "vote_model": "%s.%sVote" % (
-            object._meta.app_label, object._meta.object_name)
-    }
 
 @register.inclusion_tag('voting_js.html')
 def voting_script():
@@ -34,3 +28,12 @@ def is_down_voted_by(object, user):
         return bool(object.votes.filter(voter=user, value=-1).count())
     else:
         return False
+
+@register.inclusion_tag('vote_buttons.html',takes_context=True)
+def vote_buttons_for(context, object, *args, **kwargs):
+    return {
+        "user": context['user'],
+        "object": object,
+        "vote_model": "%s.%sVote" % (
+            object._meta.app_label, object._meta.object_name)
+    }

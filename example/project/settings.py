@@ -18,7 +18,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'qhonuskan_votes'
+    'qhonuskan_votes',
     'app')
 
 INTERNAL_IPS = ('127.0.0.1',)
