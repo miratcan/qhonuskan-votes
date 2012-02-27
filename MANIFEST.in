@@ -2,7 +2,7 @@ recursive-include qhonuskan_votes/templates *.html
 recursive-include qhonuskan_votes/static *.css
 include README.txt
 include CHANGES.txt
-include LICANSE.txt
+include LICENSE.txt
 
 
 
