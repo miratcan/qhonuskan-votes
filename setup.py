@@ -5,7 +5,7 @@ setup(
     url='https://github.com/miratcan/qhonuskan-votes',
     license='GPL',
     description="Easy to use reddit like voting system for django models.",
-    long_description=open('README.txt', 'r').read(),
+    long_description=open('README.rst', 'r').read(),
     author='Mirat Can Bayrak',
     author_email='miratcanbayrak@gmail.com',
     packages=['qhonuskan_votes', 'qhonuskan_votes.templatetags'],

@@ -1,6 +1,6 @@
 recursive-include qhonuskan_votes/templates *.html
 recursive-include qhonuskan_votes/static *.css
-include README.txt
+include README.rst
 include CHANGES.txt
 include LICENSE.txt
 

@@ -30,7 +30,7 @@ def is_down_voted_by(object, user):
         return False
 
 @register.inclusion_tag('vote_buttons.html',takes_context=True)
-def vote_buttons_for(context, object, *args, **kwargs):
+def vote_buttons_for(context, object):
     return {
         "user": context['user'],
         "object": object,
