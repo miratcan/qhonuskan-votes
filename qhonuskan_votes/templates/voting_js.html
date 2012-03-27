@@ -36,6 +36,7 @@
 	    });
 	    $('.upVote, .downVote').click(function(){
 	        $(this).parent().trigger("vote", $(this).attr("x:value"));
+            return false;
 	    });
 	});
 </script>
