@@ -45,7 +45,7 @@ def vote_buttons_for(parser, token):
     token_contents = token.split_contents()
     obj = token_contents[1]
     if len(token_contents) > 2:
-        template_loc = token_contents[2]
+        template_loc = token_contents[2].replace('"', '').replace("'", '')
     else:
         template_loc = 'vote_buttons.html'
     return VoteButtonsNode(obj, template_loc)
