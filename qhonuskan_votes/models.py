@@ -2,6 +2,9 @@ from django.db import models
 from django.db.models.base import ModelBase
 from django.utils.translation import (ugettext_lazy as _, ugettext)
 from django.contrib.auth.models import User
+from django.dispatch import Signal
+
+vote_changed= Signal(providing_args=["voter", "object"])
 
 _vote_models = {}
 
@@ -86,6 +89,17 @@ class VotesField(object):
                 ordering = ('date',)
                 verbose_name = _('Vote')
                 verbose_name_plural = _('Votes')
+
+            def save(self, *args, **kwargs):
+                if self.pk is not None:
+                    orig_vote = Vote.objects.get(pk=self.pk)
+                    if orig_vote.value != self.value:
+                        vote_changed.send(sender=self)
+                super(Vote, self).save(*args, **kwargs)
+
+            def delete(self, *args, **kwargs):
+                vote_changed.send(sender=self)
+                super(Vote, self).save(*args, **kwargs)
 
             def __unicode__(self):
                 values = {
