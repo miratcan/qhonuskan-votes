@@ -35,7 +35,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware')
 
-ROOT_URLCONF = 'project.urls'
+ROOT_URLCONF = 'demo.urls'
 
 SECRET_KEY = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcd'
 
