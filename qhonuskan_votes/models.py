@@ -50,8 +50,8 @@ class VotesField(object):
                 # Rename class
                 name = '%sVote' % model._meta.object_name
 
-                # This attribute is required for a model to function properly
-                # in Django.
+                # This attribute is required for a model to function
+                # properly in Django.
                 attrs['__module__'] = model.__module__
 
                 vote_model = ModelBase.__new__(c, name, bases, attrs)
@@ -96,10 +96,10 @@ class VotesField(object):
                     if orig_vote.value != self.value:
                         vote_changed.send(sender=self)
                 super(Vote, self).save(*args, **kwargs)
-
+            
             def delete(self, *args, **kwargs):
                 vote_changed.send(sender=self)
-                super(Vote, self).save(*args, **kwargs)
+                super(Vote, self).delete(*args, **kwargs)
 
             def __unicode__(self):
                 values = {
