@@ -11,6 +11,9 @@ DATABASE_ENGINE = 'sqlite3'
 DATABASE_NAME = 'sqlite.db'
 DEBUG = True
 
+DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3',
+                         'NAME': 'sqlite'}}
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.admin',
@@ -39,7 +42,7 @@ SECRET_KEY = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcd'
 SITE_ID = 1
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.auth',
+    'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.media',
     'django.core.context_processors.request')
 
@@ -54,7 +57,6 @@ STATICFILES_FINDERS = (
 TEMPLATE_DEBUG = DEBUG
 
 TEMPLATE_DIRS = (os.path.join(PROJECT_PATH, 'templates'),)
-
 
 LOGGING = {
     'version': 1,
