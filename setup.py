@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
     name="qhonuskan-votes",
@@ -10,7 +10,7 @@ setup(
     author_email='miratcanbayrak@gmail.com',
     packages=['qhonuskan_votes', 'qhonuskan_votes.templatetags'],
     package_data={'qhonuskan_votes': ['templates/*.html', 'static/*.css']},
-    version='0.1.3',
+    version='0.1.4',
     requires=['django(>=1.2)'],
     zip_safe=True,
     include_package_data=False,
