@@ -91,18 +91,19 @@ class VotesField(object):
                 verbose_name_plural = _('Votes')
 
             def save(self, *args, **kwargs):
+                super(Vote, self).save(*args, **kwargs)
+
                 if self.pk is not None:
                     orig_vote = Vote.objects.get(pk=self.pk)
                     if orig_vote.value != self.value:
                         vote_changed.send(sender=self)
                 else:
                     vote_changed.send(sender=self)
-                    
-                super(Vote, self).save(*args, **kwargs)
+
             
             def delete(self, *args, **kwargs):
-                vote_changed.send(sender=self)
                 super(Vote, self).delete(*args, **kwargs)
+                vote_changed.send(sender=self)
 
             def __unicode__(self):
                 values = {
