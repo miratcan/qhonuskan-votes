@@ -95,6 +95,9 @@ class VotesField(object):
                     orig_vote = Vote.objects.get(pk=self.pk)
                     if orig_vote.value != self.value:
                         vote_changed.send(sender=self)
+                else:
+                    vote_changed.send(sender=self)
+                    
                 super(Vote, self).save(*args, **kwargs)
             
             def delete(self, *args, **kwargs):
