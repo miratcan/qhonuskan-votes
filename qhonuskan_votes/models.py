@@ -1,82 +1,139 @@
-from qhonuskan_votes.utils import get_vote_model, SumWithDefault
-from django.utils import simplejson
-from django.http import HttpResponse, HttpResponseRedirect
-from django.views.decorators.csrf import csrf_exempt
+from django.db import models
+from django.db.models.base import ModelBase
+from django.utils.translation import (ugettext_lazy as _, ugettext)
+from django.contrib.auth.models import User
+from django.dispatch import Signal
+
+vote_changed = Signal(providing_args=["voter", "object"])
+
+_vote_models = {}
+
+# Managers --------------------------------------------------------------------
 
 
-def _api_view(func):
+class ObjectsWithScoresManager(models.Manager):
     """
-    Extracts model information from the POST dictionary and gets the vote model
-    from them.
+    Returns objects with their scores
     """
-
-    def view(request):
-        if request.method == 'POST':
-            # Get comments model
-            model_name = request.POST['vote_model']
-            model = get_vote_model(model_name)
-            object_id = request.POST['object_id']
-            # View
-            result = func(request, model, object_id, request.POST['value'])
-
-            if result:
-                return result
-            else:
-                # ... and redirect to next.
-                if 'next' in request.REQUEST:
-                    return HttpResponseRedirect(request.REQUEST['next'])
-                else:
-                    return HttpResponse('OK')
-        else:
-            # Default response: 403
-            return HttpResponse(status=403)
-    return view
-
-
-@csrf_exempt
-@_api_view
-def vote(request, model, object_id, value):
-    """
-    Likes or dislikes an item.
-    """
-    # You're not authenticated
-    if not request.user.is_authenticated():
-        return HttpResponse(status=401)
-    try:
-        value = int(value)
-    except ValueError:
-        return HttpResponse(status=400)
-
-    # You can only vote upwards or downwards
-    if not value in (1, -1):
-        return HttpResponse(status=400)
-
-    try:
-        vote_instance = model.objects.get(
-            object__id=object_id,
-            voter=request.user
+    def get_query_set(self):
+        from qhonuskan_votes.utils import SumWithDefault
+        return super(ObjectsWithScoresManager, self).get_query_set().annotate(
+            vote_score=SumWithDefault(
+                '%svote__value' % self.model._meta.module_name, default=0
+            )
         )
 
-    except model.DoesNotExist:
-        vote_instance = None
+# Fields ----------------------------------------------------------------------
 
-    # If there is already a vote
-    if vote_instance:
-        if vote_instance.value == value:
-            vote_instance.delete()
-            value = 0
-        else:
-            vote_instance.value = value
-            vote_instance.save()
-    else:
-        vote_instance = model.objects.create(
-            object_id=object_id, voter=request.user, value=value)
 
-    response_dict = model.objects.filter(
-        object__id=object_id
-    ).aggregate(score=SumWithDefault("value", default=0))
+class VotesField(object):
+    """
+    Usage:
 
-    response_dict.update({"voted_as": value})
+    class MyModel(models.Model):
+        ...
+        Votes = VotesField()
+    """
+    def __init__(self):
+        pass
 
-    return HttpResponse(\
-        simplejson.dumps(response_dict), mimetype="application/json")
+    def contribute_to_class(self, cls, name):
+        self._name = name
+
+        descriptor = self._create_Vote_model(cls)
+        setattr(cls, self._name, descriptor)
+
+    def _create_Vote_model(self, model):
+        class VoteMeta(ModelBase):
+            """
+            Make every Vote model have their own name/table.
+            """
+            def __new__(c, name, bases, attrs):
+
+                # Rename class
+                name = '%sVote' % model._meta.object_name
+
+                # This attribute is required for a model to function
+                # properly in Django.
+                attrs['__module__'] = model.__module__
+
+                vote_model = ModelBase.__new__(c, name, bases, attrs)
+
+                _vote_models[vote_model.get_model_name()] = vote_model
+
+                return vote_model
+
+        rel_nm_user = '%s_votes' % model._meta.object_name.lower()
+
+        class Vote(models.Model):
+            """
+            Vote model
+            """
+            __metaclass__ = VoteMeta
+
+            voter = models.ForeignKey(
+                User,
+                verbose_name=_('voter'))
+
+            value = models.IntegerField(
+                default=1,
+                verbose_name=_('value'))
+
+            date = models.DateTimeField(
+                auto_now_add=True,
+                db_index=True,
+                verbose_name=_('voted on'))
+
+            object = models.ForeignKey(
+                model,
+                verbose_name=_('object'))
+
+            class Meta:
+                ordering = ('date',)
+                verbose_name = _('Vote')
+                verbose_name_plural = _('Votes')
+
+            def save(self, *args, **kwargs):
+                super(Vote, self).save(*args, **kwargs)
+
+                if self.pk is not None:
+                    orig_vote = Vote.objects.get(pk=self.pk)
+                    print "i run"
+                    if orig_vote.value != self.value:
+                        print "vote changed"
+                        vote_changed.send(sender=self)
+                else:
+                    print "i run"
+                    vote_changed.send(sender=self)
+
+            def delete(self, *args, **kwargs):
+                super(Vote, self).delete(*args, **kwargs)
+                vote_changed.send(sender=self)
+
+            def __unicode__(self):
+                values = {
+                    'voter': self.voter.username,
+                    'like': _('likes') if self.value > 0 else _('hates'),
+                    'object': self.object}
+
+                return "%(voter)s %(like)s %(object)s" % values
+
+            @classmethod
+            def get_model_name(self):
+                return '%s.%s' % (self._meta.app_label, self._meta.object_name)
+
+        class VoteFieldDescriptor(object):
+            def __init__(self):
+                pass
+
+            def __get__(self, obj, objtype):
+                """
+                Return the related manager for the Votes.
+                """
+                if obj:
+                    return getattr(obj,
+                        ('%svote_set' % model._meta.object_name).lower())
+                else:
+                    return Vote.objects
+
+        return VoteFieldDescriptor()
