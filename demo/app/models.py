@@ -1,7 +1,6 @@
 from django.db import models
 from qhonuskan_votes.models import VotesField, ObjectsWithScoresManager
 from qhonuskan_votes.models import vote_changed
-from django.dispatch import receiver
 
 
 class aModel(models.Model):
@@ -12,6 +11,8 @@ class aModel(models.Model):
     votes = VotesField()
     objects_with_scores = ObjectsWithScoresManager()
 
-@receiver(vote_changed)
-def my_callback(sender, dispatch_uid="vote_changed", **kwargs):
+
+def my_callback(sender, **kwargs):
     print "vote_changed signal fired."
+
+vote_changed.connect(my_callback, dispatch_uid="vote_changed")
