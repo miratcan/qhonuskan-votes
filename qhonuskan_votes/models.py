@@ -94,17 +94,14 @@ class VotesField(object):
                 verbose_name_plural = _('Votes')
 
             def save(self, *args, **kwargs):
-                super(Vote, self).save(*args, **kwargs)
 
                 if self.pk is not None:
                     orig_vote = Vote.objects.get(pk=self.pk)
-                    print "i run"
                     if orig_vote.value != self.value:
-                        print "vote changed"
                         vote_changed.send(sender=self)
                 else:
-                    print "i run"
                     vote_changed.send(sender=self)
+                super(Vote, self).save(*args, **kwargs)
 
             def delete(self, *args, **kwargs):
                 super(Vote, self).delete(*args, **kwargs)
