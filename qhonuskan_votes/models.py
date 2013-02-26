@@ -1,6 +1,4 @@
-from django.contrib.auth.models import User
 from qhonuskan_votes.utils import get_vote_model, SumWithDefault
-from django.db.models import Sum
 from django.utils import simplejson
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
