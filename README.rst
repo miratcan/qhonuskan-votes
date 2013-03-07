@@ -81,7 +81,7 @@ Quick Implementation Guide
      item_list_unordered_with_scores = Items.objects_with_scores.all().order_by(-date_created)
 
      #To obtain a list of items sorted by vote counts like (1,0,-1) like Reddit:
-     item_list_unordered_with_scores = Items.sort_by_score.all()
+     item_list_ordered__scores = Items.sort_by_score.all()
 
 
 6. Load qhonuskan_votes templatetags from your template. You will need STATIC_PREFIX too.
