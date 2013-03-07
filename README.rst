@@ -44,7 +44,14 @@ Quick Implementation Guide
       
      class MyModel(models.Model):
          votes = VotesField()
+	 # Add objects before all other managers to avoid issues mention in http://stackoverflow.com/a/4455374/1462141
+	 objects = models.Manager()
+	 
+	 #For just a list of objects that are not ordered that can be customized.
          objects_with_scores = ObjectsWithScoresManager()
+	 
+	 #For a objects ordered by score.
+	 sort_by_score = SortByScoresManager()
          ...
          ...
 
@@ -61,7 +68,23 @@ Quick Implementation Guide
        url(r'^votes/', include(qhonuskan_votes.urls)),
      )
 
-5. Load qhonuskan_votes templatetags from your template. You will need STATIC_PREFIX too.
+5. Create the list in you view. Use 
+
+   ::
+
+     #For a regular list of items without votes from your model use the following:
+     item_list_no_score = Items.objects.all()
+
+     #For a list with scores that can be customized with use the following:
+     item_list_unordered_with_scores = Items.objects_with_scores.all()
+     #to customize the order by a field unique to your model. So something like this:
+     item_list_unordered_with_scores = Items.objects_with_scores.all().order_by(-date_created)
+
+     #To obtain a list of items sorted by vote counts like (1,0,-1) like Reddit:
+     item_list_unordered_with_scores = Items.sort_by_score.all()
+
+
+6. Load qhonuskan_votes templatetags from your template. You will need STATIC_PREFIX too.
 
    ::
 
@@ -69,13 +92,13 @@ Quick Implementation Guide
      {% get_static_prefix as STATIC_PREFIX %}
 
 
-6. Load default_buttons.css to give little shape to buttons
+7. Load default_buttons.css to give little shape to buttons
 
    ::
 
      <link href="{{STATIC_PREFIX}}default_buttons.css" rel="stylesheet" type="text/css" />
 
-7. After that line, if you wish you can override some properties
+8. After that line, if you wish you can override some properties
 
    ::
 
@@ -88,20 +111,20 @@ Quick Implementation Guide
        }
      </style>
 
-8. Load jquery to your template
+9. Load jquery to your template
 
    ::
 
      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 
-9. After all, you can add voting_script template tag to your head section.
+10. After all, you can add voting_script template tag to your head section.
    It generates necessary javascript code for ajax requests.
 
    ::
 
      {% voting_script %}
 
-10. use vote_buttons_for_object template tag to create buttons.
+11. use vote_buttons_for_object template tag to create buttons.
 
     ::
 
