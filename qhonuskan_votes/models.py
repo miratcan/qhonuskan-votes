@@ -23,6 +23,19 @@ class ObjectsWithScoresManager(models.Manager):
             )
         )
 
+class SortByScoresManager(models.Manager):
+    """
+    Returns objects with their scores and orders them by value (1,0,-1)
+    """
+    def get_query_set(self):
+        from qhonuskan_votes.utils import SumWithDefault
+        return super(ObjectsWithScoresManager, self).get_query_set().annotate(
+            vote_score=SumWithDefault(
+                '%svote__value' % self.model._meta.module_name, default=0
+            )
+        ).order_by('-vote_score')
+
+
 # Fields ----------------------------------------------------------------------
 
 
