@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="qhonuskan-votes",
-    url='https://github.com/miratcan/qhonuskan-votes',
+    url='https://github.com/linkfloyd/qhonuskan-votes',
     license='GPL',
     description="Easy to use reddit like voting system for django models.",
     long_description=open('README.rst', 'r').read(),
