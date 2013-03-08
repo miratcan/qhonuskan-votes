@@ -1,0 +1,4 @@
+Thanks to the following folks for patches and other contributions:
+
+Ed Menendez: https://github.com/edmenendez
+Jonathan Costello: https://github.com/jcostello84

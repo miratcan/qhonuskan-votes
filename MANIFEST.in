@@ -3,6 +3,4 @@ recursive-include qhonuskan_votes/static *.css
 include README.rst
 include CHANGES.txt
 include LICENSE.txt
-
-
-
+include CONTRIBUTORS.txt
