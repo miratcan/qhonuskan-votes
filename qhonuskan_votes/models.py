@@ -29,7 +29,7 @@ class SortByScoresManager(models.Manager):
     """
     def get_query_set(self):
         from qhonuskan_votes.utils import SumWithDefault
-        return super(ObjectsWithScoresManager, self).get_query_set().annotate(
+        return super(SortByScoresManager, self).get_query_set().annotate(
             vote_score=SumWithDefault(
                 '%svote__value' % self.model._meta.module_name, default=0
             )
