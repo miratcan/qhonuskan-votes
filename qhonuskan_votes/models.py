@@ -23,6 +23,7 @@ class ObjectsWithScoresManager(models.Manager):
             )
         )
 
+
 class SortByScoresManager(models.Manager):
     """
     Returns objects with their scores and orders them by value (1,0,-1)
