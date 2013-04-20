@@ -106,6 +106,7 @@ class VotesField(object):
                 ordering = ('date',)
                 verbose_name = _('Vote')
                 verbose_name_plural = _('Votes')
+                unique_together = ('voter', 'object')
 
             def save(self, *args, **kwargs):
 
