@@ -1,12 +1,8 @@
-try:
-    # For django 1.5+
-    from django.conf.urls import *
-except:
-    # For django 1.4.5 and lower
-    from django.conf.urls.defaults import *
-
 from qhonuskan_votes import views
+from qhonuskan_votes.compat import patterns, url
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
+
     url(r'^vote/$', views.vote, name='vote'),
 )

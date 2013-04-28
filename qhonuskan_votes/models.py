@@ -1,8 +1,9 @@
 from django.db import models
 from django.db.models.base import ModelBase
 from django.utils.translation import (ugettext_lazy as _, ugettext)
-from django.contrib.auth.models import User
 from django.dispatch import Signal
+
+from qhonuskan_votes.compat import User
 
 vote_changed = Signal(providing_args=["voter", "object"])
 
