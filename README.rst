@@ -118,7 +118,7 @@ Quick Implementation Guide
      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 
 10. After all, you can add voting_script template tag to your head section.
-   It generates necessary javascript code for ajax requests.
+It generates necessary javascript code for ajax requests.
 
    ::
 
@@ -138,6 +138,19 @@ Quick Implementation Guide
       {% endfor %}
 
 For further information you can inspect example project at root of the repository.
+
+Contribution
+------------
+You liked this project? Nice. Let's start with provide your virtual
+environment. You can install all you need dependencies::
+
+    $ pip install -r requirements/development.txt
+
+We have some important conditions during the development of the project:
+
+* We adopt PEP8 as Python style guide.
+* You can send us patch for reviewing changes, but if you fork the project
+  and open a pull request from github, that would be very easy for us.
 
 FootNotes
 ~~~~~~~~~~
