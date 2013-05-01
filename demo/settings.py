@@ -26,6 +26,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'qhonuskan_votes',
+    'lettuce.django',
     'app')
 
 INTERNAL_IPS = ('127.0.0.1',)
