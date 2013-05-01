@@ -20,14 +20,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'qhonuskan_votes',
     'lettuce.django',
+    'qhonuskan_votes',
     'app')
 
 INTERNAL_IPS = ('127.0.0.1',)
 
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
-
 MEDIA_URL = '/media/'
 
 MIDDLEWARE_CLASSES = (
@@ -55,5 +54,4 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder")
 
 TEMPLATE_DEBUG = DEBUG
-
 TEMPLATE_DIRS = (os.path.join(PROJECT_PATH, 'templates'),)
