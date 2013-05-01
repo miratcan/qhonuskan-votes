@@ -1,11 +1,6 @@
 import os
+
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
-
-QHONUSKAN_VOTES_PATH = os.path.dirname(
-    os.path.join(PROJECT_PATH, "../", "../"))
-
-os.sys.path.insert(0, QHONUSKAN_VOTES_PATH)
-
 ADMIN_MEDIA_PREFIX = '/admin_media/'
 DATABASE_ENGINE = 'sqlite3'
 DATABASE_NAME = 'demo.db'
@@ -62,22 +57,3 @@ STATICFILES_FINDERS = (
 TEMPLATE_DEBUG = DEBUG
 
 TEMPLATE_DIRS = (os.path.join(PROJECT_PATH, 'templates'),)
-
-#Uncomment below to enable logging with email mail.
-#LOGGING = {
-#    'version': 1,
-#    'disable_existing_loggers': False,
-#    'handlers': {
-#        'mail_admins': {
-#            'level': 'ERROR',
-#            'class': 'django.utils.log.AdminEmailHandler'
-#        }
-#    },
-#    'loggers': {
-#        'django.request': {
-#            'handlers': ['mail_admins'],
-#            'level': 'ERROR',
-#            'propagate': True,
-#        },
-#    }
-#}
