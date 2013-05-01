@@ -1,20 +1,20 @@
 [
     {
-        "model": "app.amodel",
+        "model": "app.threadmodel",
         "pk": 1,
         "fields": {
             "text": "this is a simple model that can be voted."
         }
     },
     {
-        "model": "app.amodel",
+        "model": "app.threadmodel",
         "pk": 2,
         "fields": {
             "text": "another object that can be voted."
         }
     },
     {
-        "model": "app.amodel",
+        "model": "app.threadmodel",
         "pk": 3,
         "fields": {
             "text": "and another..."

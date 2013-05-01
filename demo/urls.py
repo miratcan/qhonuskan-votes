@@ -4,7 +4,7 @@ from qhonuskan_votes.compat import patterns, include, url
 admin.autodiscover()
 
 urlpatterns = patterns(
-    'demo.views',
+    'demo.app.views',
 
     url(r'^$', 'home', name='home'),
 

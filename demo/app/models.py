@@ -3,7 +3,7 @@ from qhonuskan_votes.models import VotesField, ObjectsWithScoresManager
 from qhonuskan_votes.models import vote_changed
 
 
-class aModel(models.Model):
+class ThreadModel(models.Model):
     """
     An example model for voting.
     """
