@@ -9,6 +9,8 @@ class ThreadModel(models.Model):
     """
     text = models.TextField()
     votes = VotesField()
+
+    objects = models.Manager()
     objects_with_scores = ObjectsWithScoresManager()
 
 
