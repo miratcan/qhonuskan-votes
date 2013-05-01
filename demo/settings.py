@@ -8,11 +8,15 @@ os.sys.path.insert(0, QHONUSKAN_VOTES_PATH)
 
 ADMIN_MEDIA_PREFIX = '/admin_media/'
 DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = 'sqlite.db'
+DATABASE_NAME = 'demo.db'
 DEBUG = True
 
-DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3',
-                         'NAME': 'sqlite'}}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': DATABASE_NAME
+    }
+}
 
 INSTALLED_APPS = (
     'django.contrib.auth',
