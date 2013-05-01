@@ -1,6 +1,6 @@
+recursive-include qhonuskan_votes *.py *.feature
+recursive-include qhonuskan_votes/static *
 recursive-include qhonuskan_votes/templates *.html
-recursive-include qhonuskan_votes/static *.css
+include *.txt
 include README.rst
-include CHANGES.txt
-include LICENSE.txt
-include CONTRIBUTORS.txt
+include requirements/global.txt
