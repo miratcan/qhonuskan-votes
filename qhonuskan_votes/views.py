@@ -1,7 +1,8 @@
-from qhonuskan_votes.utils import get_vote_model, SumWithDefault
 from django.utils import simplejson
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
+
+from qhonuskan_votes.utils import get_vote_model, SumWithDefault
 
 
 def _api_view(func):
