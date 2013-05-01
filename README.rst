@@ -23,6 +23,16 @@ Features
 
 *  Default buttons are pure css, there is no images. So it's lite.
 
+What's new?
+-----------
+version 0.2
+'''''''''''
+* Defined ``get_version`` method to get project version in your code.
+* Lettuce tests are added for testing voting system.
+* Changed ``vote`` view name as ``qhonuskan_vote``. Prefix is required for
+  minimizing view name conflicts.
+
+
 Quick Implementation Guide
 --------------------------
 
