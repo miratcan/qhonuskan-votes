@@ -32,6 +32,7 @@ version 0.2
 * Changed ``vote`` view name as ``qhonuskan_vote``. Prefix is required for
   minimizing view name conflicts.
 * Moved templates to ``templates/qhonuskan`` directory.
+* Minimum Django version that we supported is 1.3.
 
 
 Quick Implementation Guide
