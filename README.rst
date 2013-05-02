@@ -31,6 +31,7 @@ version 0.2
 * Lettuce tests are added for testing voting system.
 * Changed ``vote`` view name as ``qhonuskan_vote``. Prefix is required for
   minimizing view name conflicts.
+* Moved templates to ``templates/qhonuskan`` directory.
 
 
 Quick Implementation Guide
@@ -51,22 +52,22 @@ Quick Implementation Guide
 
      from django.db import models
      from qhonuskan_votes.models import VotesField
-      
+
      class MyModel(models.Model):
          votes = VotesField()
 	 # Add objects before all other managers to avoid issues mention in http://stackoverflow.com/a/4455374/1462141
 	 objects = models.Manager()
-	 
+
 	 #For just a list of objects that are not ordered that can be customized.
          objects_with_scores = ObjectsWithScoresManager()
-	 
+
 	 #For a objects ordered by score.
 	 sort_by_score = SortByScoresManager()
          ...
          ...
 
 3. Syncdb.
-4. Extend your urls [#]_. 
+4. Extend your urls [#]_.
    ::
 
      import qhonuskan_votes.urls
@@ -78,7 +79,7 @@ Quick Implementation Guide
        url(r'^votes/', include(qhonuskan_votes.urls)),
      )
 
-5. Create the list in you view. Use 
+5. Create the list in you view. Use
 
    ::
 
@@ -167,4 +168,3 @@ FootNotes
 .. [#] To use the views for up voting and down voting you include the urls.py in your
        website's url patterns. You can serve qhonuskan_votes views wherever you
        want. Javascript files updates automatically to find qhonuskan_votes views.
-
