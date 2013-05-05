@@ -1,18 +1,17 @@
 import os
+
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
-
-QHONUSKAN_VOTES_PATH = os.path.dirname(
-    os.path.join(PROJECT_PATH, "../", "../"))
-
-os.sys.path.insert(0, QHONUSKAN_VOTES_PATH)
-
 ADMIN_MEDIA_PREFIX = '/admin_media/'
 DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = 'sqlite.db'
+DATABASE_NAME = 'demo.db'
 DEBUG = True
 
-DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3',
-                         'NAME': 'sqlite'}}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': DATABASE_NAME
+    }
+}
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -21,13 +20,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'lettuce.django',
     'qhonuskan_votes',
     'app')
 
 INTERNAL_IPS = ('127.0.0.1',)
 
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
-
 MEDIA_URL = '/media/'
 
 MIDDLEWARE_CLASSES = (
@@ -55,24 +54,4 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder")
 
 TEMPLATE_DEBUG = DEBUG
-
 TEMPLATE_DIRS = (os.path.join(PROJECT_PATH, 'templates'),)
-
-#Uncomment below to enable logging with email mail.
-#LOGGING = {
-#    'version': 1,
-#    'disable_existing_loggers': False,
-#    'handlers': {
-#        'mail_admins': {
-#            'level': 'ERROR',
-#            'class': 'django.utils.log.AdminEmailHandler'
-#        }
-#    },
-#    'loggers': {
-#        'django.request': {
-#            'handlers': ['mail_admins'],
-#            'level': 'ERROR',
-#            'propagate': True,
-#        },
-#    }
-#}

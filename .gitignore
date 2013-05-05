@@ -2,3 +2,7 @@
 *.db
 *~
 /sitestatic/
+
+build/
+dist/
+*.egg-info

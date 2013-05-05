@@ -1,13 +1,12 @@
 from django import template
 from django.core.urlresolvers import reverse
-#from django.template import RequestContext
 
 register = template.Library()
 
 
-@register.inclusion_tag('voting_js.html')
+@register.inclusion_tag('qhonuskan/voting_js.html')
 def voting_script():
-    return {"vote_url": reverse("vote")}
+    return {"vote_url": reverse('qhonuskan_vote')}
 
 
 @register.filter
@@ -47,7 +46,7 @@ def vote_buttons_for(parser, token):
     if len(token_contents) > 2:
         template_loc = token_contents[2].replace('"', '').replace("'", '')
     else:
-        template_loc = 'vote_buttons.html'
+        template_loc = 'qhonuskan/vote_buttons.html'
     return VoteButtonsNode(obj, template_loc)
 
 

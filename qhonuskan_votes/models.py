@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models.base import ModelBase
-from django.utils.translation import (ugettext_lazy as _, ugettext)
+from django.utils.translation import ugettext_lazy as _
 from django.dispatch import Signal
 
 from qhonuskan_votes.compat import User
