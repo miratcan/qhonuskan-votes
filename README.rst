@@ -164,8 +164,9 @@ We have some important conditions during the development of the project:
 * You can send us patch for reviewing changes, but if you fork the project
   and open a pull request from github, that would be very easy for us.
 
+
 FootNotes
-~~~~~~~~~~
+---------
 .. [#] To use the views for up voting and down voting you include the urls.py in your
        website's url patterns. You can serve qhonuskan_votes views wherever you
        want. Javascript files updates automatically to find qhonuskan_votes views.
