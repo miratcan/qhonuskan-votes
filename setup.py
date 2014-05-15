@@ -7,8 +7,7 @@ pkg_version = __import__(pkg_name.replace('-', '_')).__version__
 # get requires from requirements/global.txt file.
 requires_file_name = os.path.join(
     os.path.dirname(__file__), 'requirements', 'global.txt')
-with file(requires_file_name) as install_requires:
-    install_requires = map(lambda x: x.strip(), install_requires.readlines())
+install_requires = [x.strip() for x in open(requires_file_name).readlines()]
 
 setup(
     name=pkg_name,
