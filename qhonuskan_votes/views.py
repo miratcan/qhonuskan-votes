@@ -80,4 +80,4 @@ def vote(request, model, object_id, value):
     response_dict.update({"voted_as": value})
 
     return HttpResponse(\
-        simplejson.dumps(response_dict), mimetype="application/json")
+        json.dumps(response_dict), content_type="application/json")
