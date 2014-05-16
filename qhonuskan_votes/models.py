@@ -72,7 +72,6 @@ class VotesField(object):
             Make every Vote model have their own name/table.
             """
             def __new__(c, name, bases, attrs):
-
                 # Rename class
                 name = '%sVote' % model._meta.object_name
 
@@ -88,11 +87,11 @@ class VotesField(object):
 
         rel_nm_user = '%s_votes' % model._meta.object_name.lower()
 
-        class Vote(models.Model):
+        class Vote(models.Model, metaclass=VoteMeta):
             """
             Vote model
             """
-            __metaclass__ = VoteMeta
+            #__metaclass__ = VoteMeta
 
             voter = models.ForeignKey(
                 settings.AUTH_USER_MODEL,
