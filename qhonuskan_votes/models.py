@@ -2,8 +2,8 @@ from django.db import models
 from django.db.models.base import ModelBase
 from django.utils.translation import ugettext_lazy as _
 from django.dispatch import Signal
-
-from qhonuskan_votes.compat import User
+from django.conf import AUTH_USER_MODEL
+# from qhonuskan_votes.compat import User
 
 vote_changed = Signal(providing_args=["voter", "object"])
 
@@ -87,7 +87,7 @@ class VotesField(object):
             __metaclass__ = VoteMeta
 
             voter = models.ForeignKey(
-                User,
+                settings.AUTH_USER_MODEL,
                 verbose_name=_('voter'))
 
             value = models.IntegerField(
