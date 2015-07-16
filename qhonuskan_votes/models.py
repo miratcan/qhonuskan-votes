@@ -20,7 +20,7 @@ class ObjectsWithScoresManager(models.Manager):
         from qhonuskan_votes.utils import SumWithDefault
         return super(ObjectsWithScoresManager, self).get_queryset().annotate(
             vote_score=SumWithDefault(
-                '%svote__value' % self.model._meta.module_name, default=0
+                '%svote__value' % self.model._meta.model_name, default=0
             )
         )
 
@@ -33,7 +33,7 @@ class SortByScoresManager(models.Manager):
         from qhonuskan_votes.utils import SumWithDefault
         return super(SortByScoresManager, self).get_queryset().annotate(
             vote_score=SumWithDefault(
-                '%svote__value' % self.model._meta.module_name, default=0
+                '%svote__value' % self.model._meta.model_name, default=0
             )
         ).order_by('-vote_score')
 
