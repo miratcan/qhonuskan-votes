@@ -3,6 +3,7 @@ from django.db.models.base import ModelBase
 from django.utils.translation import ugettext_lazy as _
 from django.dispatch import Signal
 from django.conf import settings
+import django
 # from qhonuskan_votes.compat import User
 
 vote_changed = Signal(providing_args=["voter", "object"])
@@ -17,12 +18,19 @@ class ObjectsWithScoresManager(models.Manager):
     Returns objects with their scores
     """
     def get_queryset(self):
-        from qhonuskan_votes.utils import SumWithDefault
-        return super(ObjectsWithScoresManager, self).get_queryset().annotate(
-            vote_score=SumWithDefault(
-                '%svote__value' % self.model._meta.model_name, default=0
+        if django.VERSION < (1, 8):
+            from qhonuskan_votes.utils import SumWithDefault
+            return super(ObjectsWithScoresManager, self).get_queryset().annotate(
+               vote_score=SumWithDefault(
+                   '%svote__value' % self.model._meta.model_name, default=0
+               )
             )
-        )
+        else:
+            from django.db.models import Sum
+            from django.db.models.functions import Coalesce
+            return super(ObjectsWithScoresManager, self).get_queryset().annotate(
+                vote_score=Coalesce(Sum('%svote__value' % self.model._meta.model_name), 0)
+            )
 
 
 class SortByScoresManager(models.Manager):
