@@ -1,6 +1,6 @@
-from qhonuskan_votes.compat import patterns, url
+from django.conf.urls import url
+from . import views
 
-urlpatterns = patterns(
-    'qhonuskan_votes.views',
-
-    url(r'^vote/$', view='vote', name='qhonuskan_vote'))
+urlpatterns = [
+    url(r'^vote/$', views.vote, name='qhonuskan_vote')
+]

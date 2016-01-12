@@ -79,4 +79,4 @@ class VoteButtonsNode(template.Node):
             "vote_model": "%s.%sVote" % (
                 obj._meta.app_label, obj._meta.object_name)
         }
-        return t.render(template.Context(c, autoescape=context.autoescape))
+        return t.render(c)
