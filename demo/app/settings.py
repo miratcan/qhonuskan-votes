@@ -9,7 +9,7 @@ DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': DATABASE_NAME
+        'NAME': os.path.join(PROJECT_PATH, 'demo.db')
     }
 }
 
@@ -34,7 +34,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware')
 
-ROOT_URLCONF = 'demo.urls'
+ROOT_URLCONF = 'app.urls'
 
 SECRET_KEY = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcd'
 
@@ -54,4 +54,4 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder")
 
 TEMPLATE_DEBUG = DEBUG
-TEMPLATE_DIRS = (os.path.join(PROJECT_PATH, 'templates'),)
+TEMPLATE_DIRS = (os.path.join(PROJECT_PATH, '..', 'templates'),)
