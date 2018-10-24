@@ -19,7 +19,7 @@ def _api_view(func):
     """
 
     def view(request):
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponse(status=401)
         if not request.method == 'POST':
             return HttpResponseForbidden()
