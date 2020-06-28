@@ -1,6 +1,7 @@
-from django.conf.urls import url
+from qhonuskan_votes.compat import re_path
+
 from . import views
 
 urlpatterns = [
-    url(r'^vote/$', views.vote, name='qhonuskan_vote')
+    re_path(r'^vote/$', views.vote, name='qhonuskan_vote')
 ]
