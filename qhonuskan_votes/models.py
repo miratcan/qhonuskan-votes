@@ -116,14 +116,15 @@ class VotesField(object):
                 unique_together = ('voter', 'object')
 
             def save(self, *args, **kwargs):
-
-                if self.pk is not None:
-                    orig_vote = Vote.objects.get(pk=self.pk)
-                    if orig_vote.value != self.value:
-                        vote_changed.send(sender=self)
-                else:
-                    vote_changed.send(sender=self)
+                orig_vote = None if not self.pk else Vote.objects.get(
+                    pk=self.pk)
                 super(Vote, self).save(*args, **kwargs)
+                if not orig_vote:
+                    # On create trigger vote_changed
+                    vote_changed.send(sender=self)
+                if orig_vote and orig_vote.value != self.value:
+                    # On update only trigger signal if value changed
+                    vote_changed.send(sender=self)
 
             def delete(self, *args, **kwargs):
                 super(Vote, self).delete(*args, **kwargs)
