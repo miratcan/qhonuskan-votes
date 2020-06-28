@@ -15,6 +15,7 @@ class ThreadModel(models.Model):
 
 
 def my_callback(sender, **kwargs):
-    print "vote_changed signal fired."
+    print("vote_changed signal fired.")
+
 
 vote_changed.connect(my_callback, dispatch_uid="vote_changed")
