@@ -1,13 +1,10 @@
 from django.contrib import admin
-from qhonuskan_votes.compat import patterns, include, url
+from qhonuskan_votes.compat import include, re_path
 
-admin.autodiscover()
+from . import views
 
-urlpatterns = patterns(
-    'app.views',
-
-    url(r'^$', 'home', name='home'),
-
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^votes/', include('qhonuskan_votes.urls')),
-)
+urlpatterns = [
+    re_path(r'^$', views.home, name='home'),
+    re_path(r'^admin/', admin.site.urls),
+    re_path(r'^votes/', include('qhonuskan_votes.urls')),
+]

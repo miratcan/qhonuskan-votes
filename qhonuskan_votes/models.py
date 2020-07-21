@@ -72,7 +72,6 @@ class VotesField(object):
             Make every Vote model have their own name/table.
             """
             def __new__(c, name, bases, attrs):
-
                 # Rename class
                 name = '%sVote' % model._meta.object_name
 
@@ -88,15 +87,15 @@ class VotesField(object):
 
         rel_nm_user = '%s_votes' % model._meta.object_name.lower()
 
-        class Vote(models.Model):
+        class Vote(models.Model, metaclass=VoteMeta):
             """
             Vote model
             """
-            __metaclass__ = VoteMeta
+            #__metaclass__ = VoteMeta
 
             voter = models.ForeignKey(
-                settings.AUTH_USER_MODEL,
-                verbose_name=_('voter'))
+                settings.AUTH_USER_MODEL, verbose_name=_('voter'),
+                on_delete=models.CASCADE)
 
             value = models.IntegerField(
                 default=1,
@@ -108,8 +107,7 @@ class VotesField(object):
                 verbose_name=_('voted on'))
 
             object = models.ForeignKey(
-                model,
-                verbose_name=_('object'))
+                model, verbose_name=_('object'), on_delete=models.CASCADE)
 
             class Meta:
                 ordering = ('date',)
@@ -118,14 +116,15 @@ class VotesField(object):
                 unique_together = ('voter', 'object')
 
             def save(self, *args, **kwargs):
-
-                if self.pk is not None:
-                    orig_vote = Vote.objects.get(pk=self.pk)
-                    if orig_vote.value != self.value:
-                        vote_changed.send(sender=self)
-                else:
-                    vote_changed.send(sender=self)
+                orig_vote = None if not self.pk else Vote.objects.get(
+                    pk=self.pk)
                 super(Vote, self).save(*args, **kwargs)
+                if not orig_vote:
+                    # On create trigger vote_changed
+                    vote_changed.send(sender=self)
+                if orig_vote and orig_vote.value != self.value:
+                    # On update only trigger signal if value changed
+                    vote_changed.send(sender=self)
 
             def delete(self, *args, **kwargs):
                 super(Vote, self).delete(*args, **kwargs)

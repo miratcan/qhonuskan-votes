@@ -1,6 +1,7 @@
-from qhonuskan_votes.compat import patterns, url
+from qhonuskan_votes.compat import re_path
 
-urlpatterns = patterns(
-    'qhonuskan_votes.views',
+from . import views
 
-    url(r'^vote/$', view='vote', name='qhonuskan_vote'))
+urlpatterns = [
+    re_path(r'^vote/$', views.vote, name='qhonuskan_vote')
+]

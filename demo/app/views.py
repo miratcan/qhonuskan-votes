@@ -1,9 +1,18 @@
-from django.shortcuts import render_to_response
-from app.models import ThreadModel
+from django.views.generic import TemplateView
 from django.template import RequestContext
 
+from app.models import ThreadModel
 
-def home(request):
-    context_data = {'objects': ThreadModel.objects_with_scores.all()}
-    return render_to_response(
-        'home.html', context_data, context_instance=RequestContext(request))
+
+class HomeView(TemplateView):
+    template_name = 'home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context.update({
+            'objects': ThreadModel.objects_with_scores.all()
+        })
+        return context
+
+
+home = HomeView.as_view()

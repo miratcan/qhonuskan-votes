@@ -1,5 +1,5 @@
 from django import template
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 register = template.Library()
 
@@ -9,12 +9,27 @@ def voting_script():
     return {"vote_url": reverse('qhonuskan_vote')}
 
 
+
+@register.simple_tag
+def get_vote_status(object, user):
+    """
+    Performance wise tag, replaces is_up_voted_by and is_down_voted_by
+    cutting the number of queries to half.
+    """
+    if not user.is_authenticated:
+        return 0
+    votes = object.votes.filter(voter=user)
+    if not votes.exists():
+        return 0
+    return votes.get().value
+
+
 @register.filter
 def is_up_voted_by(object, user):
     """
     If user is up voted given object, it returns True.
     """
-    if user.is_authenticated():
+    if user.is_authenticated:
         return bool(object.votes.filter(voter=user, value=1).count())
     else:
         return False
@@ -25,7 +40,7 @@ def is_down_voted_by(object, user):
     """
     If user is down voted given object, it returns True.
     """
-    if user.is_authenticated():
+    if user.is_authenticated:
         return bool(object.votes.filter(voter=user, value=-1).count())
     else:
         return False
@@ -64,4 +79,4 @@ class VoteButtonsNode(template.Node):
             "vote_model": "%s.%sVote" % (
                 obj._meta.app_label, obj._meta.object_name)
         }
-        return t.render(template.Context(c, autoescape=context.autoescape))
+        return t.render(c)
