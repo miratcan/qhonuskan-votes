@@ -8,8 +8,9 @@ Features
 --------
 
 *  Does not use GenericForeignKeys (which irritates me when making queries)
-   Has vote_buttons_for templatetag, that generates html code for your object
-   for vote buttons.
+
+*  Has "vote_buttons_for" template tag, that generates html code for displaying
+   vote buttons.
 
 *  Has, default_buttons.css which gives a shape your buttons as default, but
    you can override.
@@ -18,7 +19,7 @@ Features
    ajax requests for voting. Automatically finds qhonuskan_votes views.
 
 *  voting_script tag also renders overridable show_not_authenticated_error
-   function, so you can use your own error windows (jquery-ui etc.) via
+   javascript function, so you can use your own error windows (jquery-ui etc.) via
    overriding it.
 
 *  Default buttons are pure css, there is no images. So it's lite.
